@@ -17,12 +17,12 @@ public class BatchPurchaseOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long batchPurchaseId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="purchase_id_purchase_id")
     @JsonIgnore
     private PurchaseOrder purchaseOrder;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="batch_number_batch_number")
     private Batch batch;
 

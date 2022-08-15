@@ -16,7 +16,7 @@ public class InboundOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long orderNumber;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sectionCode")
     private Section section;
 

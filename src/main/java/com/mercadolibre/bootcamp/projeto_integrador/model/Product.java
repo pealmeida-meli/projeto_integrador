@@ -26,7 +26,7 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Section.Category category;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     @JsonIgnore
     private Seller seller;

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -120,7 +121,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         if(purchaseOrder == null) {
             purchaseOrder = new PurchaseOrder();
             purchaseOrder.setBuyer(buyer);
-            purchaseOrder.setDate(LocalDate.now());
+            purchaseOrder.setDate(LocalDateTime.now());
             purchaseOrderRepository.save(purchaseOrder);
         }
         purchaseOrder.setOrderStatus(orderStatus);

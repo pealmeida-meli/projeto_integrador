@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -14,14 +14,14 @@ public class PurchaseOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long purchaseId;
-    private LocalDate date;
+    private LocalDateTime date;
     private String orderStatus;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="buyer_id", nullable = false)
     @JsonIgnore
     private Buyer buyer;
 
-    @OneToMany(mappedBy = "purchaseOrder")
+    @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.LAZY)
     private List<BatchPurchaseOrder> batchPurchaseOrders;
     
 }

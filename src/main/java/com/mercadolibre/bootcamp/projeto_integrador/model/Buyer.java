@@ -17,6 +17,6 @@ public class Buyer {
     @Column(length = 45)
     private String username;
 
-    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "buyer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PurchaseOrder> purchaseOrders;
 }

@@ -17,7 +17,7 @@ public class Section {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long sectionCode;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "warehouse_code")
     private Warehouse warehouse;
 
@@ -29,7 +29,7 @@ public class Section {
 
     private int currentBatches;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
     private Manager manager;
 

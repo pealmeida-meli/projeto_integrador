@@ -1,7 +1,6 @@
 package com.mercadolibre.bootcamp.projeto_integrador.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +20,7 @@ public class Batch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long batchNumber;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -47,7 +46,7 @@ public class Batch {
     @Column(precision = 9, scale = 2)
     private BigDecimal productPrice;
 
-    @OneToMany(mappedBy = "batch")
+    @OneToMany(mappedBy = "batch", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<BatchPurchaseOrder> batchPurchaseOrders;
 }

@@ -23,6 +23,6 @@ public class Seller {
     @Column(length = 60)
     private String email;
 
-    @OneToMany(mappedBy = "seller")
+    @OneToMany(mappedBy = "seller", fetch = FetchType.LAZY)
     private List<Product> products;
 }
