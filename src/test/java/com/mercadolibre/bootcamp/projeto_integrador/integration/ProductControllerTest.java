@@ -27,15 +27,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ResetDatabase
 class ProductControllerTest extends BaseControllerTest {
 
+    @Autowired
+    IInboundOrderService service;
     private Manager manager;
     private Warehouse warehouse;
     private Section section;
     private Product product;
     private List<BatchRequestDto> batches;
     private InboundOrderRequestDto validInboundOrderRequest;
-
-    @Autowired
-    IInboundOrderService service;
 
     @BeforeEach
     public void setup() {

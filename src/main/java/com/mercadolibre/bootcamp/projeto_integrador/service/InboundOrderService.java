@@ -33,6 +33,7 @@ public class InboundOrderService implements IInboundOrderService {
 
     /**
      * Método que faz a criação da InboundOrder com novos lotes
+     *
      * @param request InboundOrderRequestDto
      * @return InboundOrderResponseDto contendo os dados dos lotes inseridos
      */
@@ -55,8 +56,9 @@ public class InboundOrderService implements IInboundOrderService {
 
     /**
      * Metodo que faz a atualização da InboundOrder, com novos lotes ou atualiza os que já estão dentro
+     *
      * @param orderNumber long representando o id da InboundOrder
-     * @param request objeto InboundOrderRequestDto
+     * @param request     objeto InboundOrderRequestDto
      * @return InboundOrderResponseDto contendo as infos dos lotes atualizados/inseridos
      */
     @Override

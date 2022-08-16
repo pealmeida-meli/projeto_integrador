@@ -10,7 +10,9 @@ import java.util.Map;
 
 public interface IProductService {
 
-    public ProductResponseDto getWarehouses(long productId, long managerId);
+    ProductResponseDto getWarehouses(long productId, long managerId);
+
     Map<Long, Product> getProductMap(List<BatchRequestDto> batchesDto);
+
     ProductDetailsResponseDto getProductDetails(long productId, long managerId, String orderBy);
 }

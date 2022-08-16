@@ -175,7 +175,8 @@ class ProductServiceTest {
         assertEquals(foundProduct.getProductId(), product.getProductId());
         assertEquals(foundProduct.getBatchStock().size(), batches.size());
         assertEquals(foundProduct.getBatchStock().get(0).getBatchNumber(), minBatchNumber);
-        assertEquals(foundProduct.getBatchStock().get(foundProduct.getBatchStock().size() - 1).getBatchNumber(), maxBatchNumber);
+        assertEquals(foundProduct.getBatchStock().get(foundProduct.getBatchStock().size() - 1).getBatchNumber(),
+                maxBatchNumber);
     }
 
     @Test
@@ -200,7 +201,8 @@ class ProductServiceTest {
         assertEquals(foundProduct.getProductId(), product.getProductId());
         assertEquals(foundProduct.getBatchStock().size(), batches.size());
         assertEquals(foundProduct.getBatchStock().get(0).getCurrentQuantity(), minQuantity);
-        assertEquals(foundProduct.getBatchStock().get(foundProduct.getBatchStock().size() - 1).getCurrentQuantity(), maxQuantity);
+        assertEquals(foundProduct.getBatchStock().get(foundProduct.getBatchStock().size() - 1).getCurrentQuantity(),
+                maxQuantity);
     }
 
     @Test
@@ -225,7 +227,8 @@ class ProductServiceTest {
         assertEquals(foundProduct.getProductId(), product.getProductId());
         assertEquals(foundProduct.getBatchStock().size(), batches.size());
         assertEquals(foundProduct.getBatchStock().get(0).getDueDate(), minDueDate);
-        assertEquals(foundProduct.getBatchStock().get(foundProduct.getBatchStock().size() - 1).getDueDate(), maxDueDate);
+        assertEquals(foundProduct.getBatchStock().get(foundProduct.getBatchStock().size() - 1).getDueDate(),
+                maxDueDate);
     }
 
     @Test

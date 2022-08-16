@@ -51,7 +51,8 @@ public class SectionService implements ISectionService {
 
     /**
      * Garante que a seção pode acomodar todos os produtos fornecidos.
-     * @param section Seção dos lotes
+     *
+     * @param section  Seção dos lotes
      * @param products Produtos
      */
     private void ensureSectionHasCompatibleCategory(Section section, Map<Long, Product> products) {
@@ -68,8 +69,9 @@ public class SectionService implements ISectionService {
 
     /**
      * Garante que o gerente tem permissão para lidar na seção fornecida.
+     *
      * @param managerId ID do gerente
-     * @param section Seção dos lotes
+     * @param section   Seção dos lotes
      */
     private void ensureManagerHasPermissionInSection(long managerId, Section section) {
         Manager manager = managerService.findById(managerId);
@@ -85,7 +87,7 @@ public class SectionService implements ISectionService {
      * @param section    objeto Section.
      * @param batchCount quantos novos lotes estão sendo alocados.
      */
-    private void ensureSectionHasSpace(Section section, int batchCount){
+    private void ensureSectionHasSpace(Section section, int batchCount) {
         if (section.getAvailableSlots() < batchCount) {
             throw new MaxSizeException("Section");
         }

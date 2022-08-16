@@ -127,7 +127,7 @@ public class UpdateInboundOrderTest extends BaseControllerTest {
     void updateInboundOrder_returnsBadRequest_whenSectionDoesNotHaveEnoughSpace() throws Exception {
         int availableSlots = freshSection.getAvailableSlots();
         List<BatchRequestDto> batches = new ArrayList<>();
-        for (int i = 0; i < availableSlots+1; i++) {
+        for (int i = 0; i < availableSlots + 1; i++) {
             batches.add(batchOfFreshRequestDto);
         }
         InboundOrderRequestDto requestDto = new InboundOrderRequestDto();
@@ -201,10 +201,10 @@ public class UpdateInboundOrderTest extends BaseControllerTest {
         InboundOrderRequestDto requestDto = getValidInboundOrderRequestDto(freshSection, batchOfFreshRequestDto);
 
         mockMvc.perform(put("/api/v1/fresh-products/inboundorder")
-                .param("orderNumber", "" + orderNumber)
-                .content(asJsonString(requestDto))
-                .header("Manager-Id", manager.getManagerId())
-                .contentType(MediaType.APPLICATION_JSON))
+                        .param("orderNumber", "" + orderNumber)
+                        .content(asJsonString(requestDto))
+                        .header("Manager-Id", manager.getManagerId())
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
 
         Batch batch = batchRepository.findById(batchNumberFromAnotherManager).get();
@@ -232,7 +232,8 @@ public class UpdateInboundOrderTest extends BaseControllerTest {
     void updateInboundOrder_returnsBadRequest_whenIsGivenIncompatibleProducts() throws Exception {
         Product frozenProduct = getSavedProduct(Section.Category.FROZEN);
         BatchRequestDto batchOfFrozenRequest = getValidBatchRequest(frozenProduct);
-        InboundOrderRequestDto incompatibleRequestDto = getValidInboundOrderRequestDto(freshSection, batchOfFrozenRequest);
+        InboundOrderRequestDto incompatibleRequestDto = getValidInboundOrderRequestDto(freshSection,
+                batchOfFrozenRequest);
         int quantityBatch = batchRepository.findAll().size();
 
         mockMvc.perform(put("/api/v1/fresh-products/inboundorder")
@@ -271,7 +272,8 @@ public class UpdateInboundOrderTest extends BaseControllerTest {
 
         mockMvc.perform(put("/api/v1/fresh-products/inboundorder")
                         .param("orderNumber", String.valueOf(1L))
-                        .content(asJsonString(getValidInboundOrderRequestDto(freshSection, batchWithNonExistentProduct)))
+                        .content(asJsonString(getValidInboundOrderRequestDto(freshSection,
+                                batchWithNonExistentProduct)))
                         .header("Manager-Id", manager.getManagerId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())

@@ -26,7 +26,7 @@ public class ProductService implements IProductService {
     private final IManagerService managerService;
 
     public ProductService(IProductRepository productRepository, IBatchRepository batchRepository,
-                           IManagerService managerService) {
+                          IManagerService managerService) {
         this.productRepository = productRepository;
         this.batchRepository = batchRepository;
         this.managerService = managerService;
@@ -34,19 +34,23 @@ public class ProductService implements IProductService {
 
     /**
      * Metodo que retorna todos armazens que contenham um determinado item com as quantidades totais.
+     *
      * @param productId long representando o id do produto
-     * @return ProductResponseDto contendo o id do produto com uma lista de códigos de armazens com quantidades do produto.
+     * @return ProductResponseDto contendo o id do produto com uma lista de códigos de armazens com quantidades do
+     * produto.
      */
     @Override
     public ProductResponseDto getWarehouses(long productId, long managerId) {
         managerService.findById(managerId);
-        List<Batch> batchList = batchRepository.findAllByProduct(productRepository.findById(productId).orElseThrow(() -> new NotFoundException("Product")));
+        List<Batch> batchList =
+                batchRepository.findAllByProduct(productRepository.findById(productId).orElseThrow(() -> new NotFoundException("Product")));
         List<WarehouseResponseDto> warehouses = new ArrayList<>();
 
         batchList.stream()
                 .collect(Collectors.groupingBy(b -> b.getInboundOrder().getSection().getWarehouse().getWarehouseCode(),
                         Collectors.summingInt(b -> b.getCurrentQuantity())))
-                .forEach((warehouseCode, totalQuantity) -> warehouses.add(new WarehouseResponseDto(warehouseCode, totalQuantity)));
+                .forEach((warehouseCode, totalQuantity) -> warehouses.add(new WarehouseResponseDto(warehouseCode,
+                        totalQuantity)));
         return new ProductResponseDto(productId, warehouses);
     }
 
@@ -99,7 +103,8 @@ public class ProductService implements IProductService {
                         .sorted(Comparator.comparing(BatchResponseDto::getDueDate))
                         .collect(Collectors.toList());
             default:
-                throw new BadRequestException("Parâmetro de ordenação inválido. L: batchNumber, Q: currentQuantity, V: dueDate");
+                throw new BadRequestException("Parâmetro de ordenação inválido. L: batchNumber, Q: currentQuantity, " +
+                        "V: dueDate");
         }
     }
 
@@ -109,6 +114,7 @@ public class ProductService implements IProductService {
 
     /**
      * Retorna mapa de produtos por ID
+     *
      * @param batchesDto Lotes enviados no pedido de entrada
      * @return Mapa de produtos com identificador como chave
      */

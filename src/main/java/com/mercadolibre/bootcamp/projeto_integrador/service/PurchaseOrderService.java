@@ -153,7 +153,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private BigDecimal getPurchaseInStock(BatchPurchaseOrderRequestDto batchDto, PurchaseOrder purchase) {
         Optional<Batch> batchFound =
                 batchRepository.findOneByBatchNumberAndCurrentQuantityGreaterThanEqualAndDueDateAfterOrderByDueDate(batchDto.getBatchNumber(),
-                batchDto.getQuantity(), LocalDate.now().plusDays(21));
+                        batchDto.getQuantity(), LocalDate.now().plusDays(21));
 
         if (batchFound.isEmpty()) throw new BatchOutOfStockException(batchDto.getBatchNumber());
 

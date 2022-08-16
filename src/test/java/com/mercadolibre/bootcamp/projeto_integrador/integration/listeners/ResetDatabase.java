@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @TestExecutionListeners(mergeMode =
         TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS,
-        listeners = { ResetDatabaseTestExecutionListener.class }
+        listeners = {ResetDatabaseTestExecutionListener.class}
 )
 public @interface ResetDatabase {
 }

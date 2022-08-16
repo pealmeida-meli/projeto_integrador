@@ -57,7 +57,8 @@ class BatchServiceTest {
     @Test
     void findAll_returnBatches_whenBatchesExists() {
         // Arrange
-        when(batchRepository.findByCurrentQuantityGreaterThanAndDueDateAfter(ArgumentMatchers.anyInt(), ArgumentMatchers.any()))
+        when(batchRepository.findByCurrentQuantityGreaterThanAndDueDateAfter(ArgumentMatchers.anyInt(),
+                ArgumentMatchers.any()))
                 .thenReturn(batches);
         // Act
         List<BatchBuyerResponseDto> foundBatches = service.findAll();
@@ -74,7 +75,8 @@ class BatchServiceTest {
     void findAll_returnNotFoundException_whenBatchesNotExists() {
         // Arrange
         batches.clear();
-        when(batchRepository.findByCurrentQuantityGreaterThanAndDueDateAfter(ArgumentMatchers.anyInt(), ArgumentMatchers.any()))
+        when(batchRepository.findByCurrentQuantityGreaterThanAndDueDateAfter(ArgumentMatchers.anyInt(),
+                ArgumentMatchers.any()))
                 .thenReturn(batches);
 
         // Act
@@ -166,7 +168,8 @@ class BatchServiceTest {
     @Test
     void findBatchByCategory_returnBadRequestException_whenInvalidCategory() {
         // Act
-        BadRequestException exception = assertThrows(BadRequestException.class, () -> service.findBatchByCategory("ab"));
+        BadRequestException exception = assertThrows(BadRequestException.class, () -> service.findBatchByCategory("ab"
+        ));
 
         // Assert
         assertThat(exception.getMessage()).contains("Invalid category, try again with one of the options");
@@ -183,7 +186,8 @@ class BatchServiceTest {
                 ArgumentMatchers.any(), ArgumentMatchers.any()))).thenReturn(batches);
 
         // Act
-        List<BatchDueDateResponseDto> returnedBatches = service.findBatchBySection(section.getSectionCode(), 15, manager.getManagerId());
+        List<BatchDueDateResponseDto> returnedBatches = service.findBatchBySection(section.getSectionCode(), 15,
+                manager.getManagerId());
 
         // Assert
         assertThat(returnedBatches).isNotEmpty();
@@ -225,7 +229,8 @@ class BatchServiceTest {
                 ArgumentMatchers.any(), ArgumentMatchers.any()))).thenReturn(batches);
 
         // Act
-        List<BatchDueDateResponseDto> returnedBatches = service.findBatchBySection(section.getSectionCode(), 15, manager.getManagerId());
+        List<BatchDueDateResponseDto> returnedBatches = service.findBatchBySection(section.getSectionCode(), 15,
+                manager.getManagerId());
 
         // Assert
         assertThat(returnedBatches).isEmpty();
@@ -262,7 +267,8 @@ class BatchServiceTest {
 
         // Assert
         assertThat(exception.getName()).contains(unauthorizedManager.getName() + " is not authorized.");
-        assertThat(exception.getMessage()).contains(unauthorizedManager.getName() + " is not authorized to perform this action");
+        assertThat(exception.getMessage()).contains(unauthorizedManager.getName() + " is not authorized to perform " +
+                "this action");
         verify(batchRepository, never()).findByInboundOrder_SectionAndDueDateBetweenOrderByDueDate(ArgumentMatchers.any(),
                 ArgumentMatchers.any(), ArgumentMatchers.any());
     }

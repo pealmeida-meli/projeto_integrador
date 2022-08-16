@@ -7,17 +7,20 @@ import java.time.LocalDateTime;
 public class NotFoundException extends CustomException {
     /**
      * Lança uma CustomException com HTTP Status 404.
-     * @throws CustomException
+     *
      * @param name
+     * @throws CustomException
      */
     public NotFoundException(String name) {
-        super(name + " not found.", "There is no " + name.toLowerCase() + " with the specified id", HttpStatus.NOT_FOUND, LocalDateTime.now());
+        super(name + " not found.", "There is no " + name.toLowerCase() + " with the specified id",
+                HttpStatus.NOT_FOUND, LocalDateTime.now());
     }
 
     /**
      * Lança uma CustomException com HTTP Status 404.
-     * @throws CustomException
+     *
      * @param name, message
+     * @throws CustomException
      */
     public NotFoundException(String name, String message) {
         super(name + " not found.", message, HttpStatus.NOT_FOUND, LocalDateTime.now());

@@ -22,5 +22,6 @@ public interface IBatchService {
 
     List<BatchDueDateResponseDto> findBatchBySection(long sectionCode, int numberOfDays, long managerId);
 
-    List<BatchDueDateResponseDto> findBatchByCategoryAndDueDate(String categoryCode, int numberOfDays, String orderDir, long managerId);
+    List<BatchDueDateResponseDto> findBatchByCategoryAndDueDate(String categoryCode, int numberOfDays,
+                                                                String orderDir, long managerId);
 }

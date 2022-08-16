@@ -23,14 +23,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ResetDatabase
 class FreshProductsControllerTest extends BaseControllerTest {
 
+    @Autowired
+    IInboundOrderService service;
     private Manager manager;
     private Warehouse warehouse;
     private Section section;
     private Product product;
     private InboundOrderRequestDto validInboundOrderRequest;
-
-    @Autowired
-    IInboundOrderService service;
 
     @BeforeEach
     public void setup() {
@@ -38,7 +37,8 @@ class FreshProductsControllerTest extends BaseControllerTest {
         manager = getSavedManager();
         section = getSavedSection(warehouse, manager, Section.Category.FRESH);
         product = getSavedProduct(Section.Category.FRESH);
-        validInboundOrderRequest = getValidInboundOrderRequestDtoWithBatchList(section, getValidListBatchRequest(product));
+        validInboundOrderRequest = getValidInboundOrderRequestDtoWithBatchList(section,
+                getValidListBatchRequest(product));
         validInboundOrderRequest.getBatchStock().get(0).setBatchNumber(1);
         validInboundOrderRequest.getBatchStock().get(1).setBatchNumber(2);
     }
@@ -82,7 +82,8 @@ class FreshProductsControllerTest extends BaseControllerTest {
         mockMvc.perform(get("/api/v1/fresh-products").param("category", "FS"))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.name", containsString("Products")))
-                .andExpect(jsonPath("$.message", containsString("There are no products in stock in the requested category")));
+                .andExpect(jsonPath("$.message", containsString("There are no products in stock in the requested " +
+                        "category")));
     }
 
     @Test
@@ -90,6 +91,7 @@ class FreshProductsControllerTest extends BaseControllerTest {
         mockMvc.perform(get("/api/v1/fresh-products").param("category", "ab"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.name", containsString("Bad request")))
-                .andExpect(jsonPath("$.message", containsString("Invalid category, try again with one of the options")));
+                .andExpect(jsonPath("$.message",
+                        containsString("Invalid category, try again with one of the options")));
     }
 }

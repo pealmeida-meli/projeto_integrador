@@ -18,11 +18,11 @@ public class PurchaseOrder {
     private LocalDateTime date;
     private String orderStatus;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="buyer_id", nullable = false)
+    @JoinColumn(name = "buyer_id", nullable = false)
     @JsonIgnore
     private Buyer buyer;
 
     @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.LAZY)
     private List<BatchPurchaseOrder> batchPurchaseOrders;
-    
+
 }

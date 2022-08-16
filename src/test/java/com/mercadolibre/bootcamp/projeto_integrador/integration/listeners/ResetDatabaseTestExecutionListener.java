@@ -15,7 +15,8 @@ import java.util.Set;
 public class ResetDatabaseTestExecutionListener extends AbstractTestExecutionListener {
     private static final String SQL_DISABLE_REFERENTIAL_INTEGRITY = "SET REFERENTIAL_INTEGRITY FALSE";
     private static final String SQL_ENABLE_REFERENTIAL_INTEGRITY = "SET REFERENTIAL_INTEGRITY TRUE";
-    private static final String SQL_FIND_TABLE_NAMES = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='%s'";
+    private static final String SQL_FIND_TABLE_NAMES = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where " +
+            "TABLE_SCHEMA='%s'";
     private static final String SQL_TRUNCATE_TABLE = "TRUNCATE TABLE %s.%s RESTART IDENTITY";
 
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")
@@ -36,8 +37,8 @@ public class ResetDatabaseTestExecutionListener extends AbstractTestExecutionLis
 
     private void cleanupDatabase() throws SQLException {
         try (
-            Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement()
+                Connection connection = dataSource.getConnection();
+                Statement statement = connection.createStatement()
         ) {
             statement.execute(SQL_DISABLE_REFERENTIAL_INTEGRITY);
 

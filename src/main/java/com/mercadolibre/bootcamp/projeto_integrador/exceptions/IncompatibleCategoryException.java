@@ -10,6 +10,8 @@ public class IncompatibleCategoryException extends CustomException {
      * Lança uma CustomException com HTTP Status 400.
      */
     public IncompatibleCategoryException(List<String> productNames) {
-        super("Incompatible category", "The following products have incompatible category with the section: " + String.join(", ", productNames), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+        super("Incompatible category",
+                "The following products have incompatible category with the section: " + String.join(", ",
+                        productNames), HttpStatus.BAD_REQUEST, LocalDateTime.now());
     }
 }

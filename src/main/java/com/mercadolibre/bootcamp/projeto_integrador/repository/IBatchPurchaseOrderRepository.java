@@ -11,5 +11,6 @@ import java.util.Optional;
 
 public interface IBatchPurchaseOrderRepository extends JpaRepository<BatchPurchaseOrder, Long> {
     Optional<BatchPurchaseOrder> findOneByPurchaseOrderAndBatch(PurchaseOrder purchaseOrder, Batch batch);
+
     List<BatchPurchaseOrder> findAllByPurchaseOrder_BuyerAndPurchaseOrder_OrderStatusOrderByPurchaseOrder_Date(Buyer buyer, String orderStatus);
 }

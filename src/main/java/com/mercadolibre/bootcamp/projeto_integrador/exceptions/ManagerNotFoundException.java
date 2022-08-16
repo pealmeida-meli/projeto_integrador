@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public class ManagerNotFoundException extends CustomException {
     /**
      * Lança uma CustomException com HTTP Status 404.
+     *
      * @param id manager id
      */
     public ManagerNotFoundException(long id) {

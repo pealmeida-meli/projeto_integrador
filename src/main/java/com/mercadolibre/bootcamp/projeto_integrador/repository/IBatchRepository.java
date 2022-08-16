@@ -13,7 +13,9 @@ import java.util.Optional;
 @Repository
 public interface IBatchRepository extends JpaRepository<Batch, Long> {
     List<Batch> findAllByProduct(Product product);
+
     List<Batch> findByCurrentQuantityGreaterThanAndDueDateAfter(int minimumQuantity, LocalDate minimumExpirationDate);
+
     List<Batch> findByCurrentQuantityGreaterThanAndDueDateAfterAndProduct_CategoryIs(
             int minimumQuantity, LocalDate minimumExpirationDate, Section.Category category);
 

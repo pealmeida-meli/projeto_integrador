@@ -129,7 +129,7 @@ public class BatchGenerator {
 
     public static List<Batch> newBatchListChilled() {
         List<Batch> batches = newBatchList();
-        for(Batch batch : batches) {
+        for (Batch batch : batches) {
             batch.setProduct(ProductsGenerator.newProductChilled());
             batch.getInboundOrder().getSection().setCategory(Section.Category.CHILLED);
             batch.getInboundOrder().getSection().getManager().setManagerId(1);
@@ -139,7 +139,7 @@ public class BatchGenerator {
 
     public static List<Batch> newBatchListFrozen() {
         List<Batch> batches = newBatchList();
-        for(Batch batch : batches) {
+        for (Batch batch : batches) {
             batch.setProduct(ProductsGenerator.newProductFrozen());
             batch.getInboundOrder().getSection().setCategory(Section.Category.FROZEN);
             batch.getInboundOrder().getSection().getManager().setManagerId(1);

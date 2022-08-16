@@ -8,8 +8,11 @@ import com.mercadolibre.bootcamp.projeto_integrador.dto.PurchaseOrderResponseDto
 import java.util.List;
 
 public interface IPurchaseOrderService {
-    PurchaseOrderResponseDto create (PurchaseOrderRequestDto request, long buyerId);
-    PurchaseOrderResponseDto update (long purchaseOrderId, long buyerId);
+    PurchaseOrderResponseDto create(PurchaseOrderRequestDto request, long buyerId);
+
+    PurchaseOrderResponseDto update(long purchaseOrderId, long buyerId);
+
     void dropProducts(long purchaseOrderId, BatchPurchaseOrderRequestDto batchDto, long buyerId);
+
     List<BatchBuyerResponseDto> getBatches(long buyerId, long purchaseOrderId);
 }

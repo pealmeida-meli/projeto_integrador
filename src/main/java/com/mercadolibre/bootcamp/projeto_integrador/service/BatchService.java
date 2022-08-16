@@ -159,10 +159,12 @@ public class BatchService implements IBatchService {
 
     /**
      * Metodo que monta uma lista de Batch, dada lista de DTO da requisição.
+     *
      * @param batchesDto lista de BatchRequestDto.
      * @return List<Batch> pronto.
      */
-    private List<Batch> buildBatchesForCreate(List<BatchRequestDto> batchesDto, InboundOrder order, Map<Long, Product> products){
+    private List<Batch> buildBatchesForCreate(List<BatchRequestDto> batchesDto, InboundOrder order, Map<Long,
+            Product> products) {
         return batchesDto.stream()
                 .map(dto -> mapDtoToBatch(dto, order, products))
                 .peek(batch -> batch.setBatchNumber(0L))
@@ -254,7 +256,8 @@ public class BatchService implements IBatchService {
 
         List<Batch> batches = orderDirection.equalsIgnoreCase("ASC")
                 ? batchRepository.findByProduct_CategoryAndDueDateBetweenOrderByDueDateAsc(category, startDate, endDate)
-                : batchRepository.findByProduct_CategoryAndDueDateBetweenOrderByDueDateDesc(category, startDate, endDate);
+                : batchRepository.findByProduct_CategoryAndDueDateBetweenOrderByDueDateDesc(category, startDate,
+                endDate);
 
         return batches.stream()
                 .filter(batch -> batch.getInboundOrder().getSection().getManager().getManagerId() == managerId)

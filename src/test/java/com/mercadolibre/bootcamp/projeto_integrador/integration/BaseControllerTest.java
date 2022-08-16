@@ -158,7 +158,8 @@ public class BaseControllerTest {
         return batches;
     }
 
-    protected InboundOrderRequestDto getValidInboundOrderRequestDtoWithBatchList(Section section, List<BatchRequestDto> batchRequest) {
+    protected InboundOrderRequestDto getValidInboundOrderRequestDtoWithBatchList(Section section,
+                                                                                 List<BatchRequestDto> batchRequest) {
         InboundOrderRequestDto requestDto = new InboundOrderRequestDto();
         requestDto.setBatchStock(batchRequest);
         requestDto.setSectionCode(section.getSectionCode());

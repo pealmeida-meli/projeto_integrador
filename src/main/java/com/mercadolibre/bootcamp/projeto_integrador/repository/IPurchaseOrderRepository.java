@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IPurchaseOrderRepository extends JpaRepository<PurchaseOrder, Long> {
     PurchaseOrder findOnePurchaseOrderByBuyerAndOrderStatusIsLike(Buyer buyer, String orderStatus);
+
     PurchaseOrder findOneByPurchaseIdAndBuyer(long orderId, Buyer buyer);
 }
