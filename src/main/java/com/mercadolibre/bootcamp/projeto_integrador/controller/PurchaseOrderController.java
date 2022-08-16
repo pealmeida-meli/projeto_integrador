@@ -29,9 +29,9 @@ public class PurchaseOrderController {
     }
 
     @PutMapping("/fresh-products/orders")
-    public ResponseEntity<PurchaseOrderResponseDto> updatePurchaseOrder(@RequestHeader("Buyer-Id") long buyerId,
-                                                          @RequestParam long purchaseOrderId) {
-        return ResponseEntity.ok(service.update(purchaseOrderId, buyerId));
+    public PurchaseOrderResponseDto updatePurchaseOrder(@RequestHeader("Buyer-Id") long buyerId,
+                                                        @RequestParam long purchaseOrderId) {
+        return service.update(purchaseOrderId, buyerId);
     }
 
     @DeleteMapping("/fresh-products/orders")
@@ -43,8 +43,8 @@ public class PurchaseOrderController {
     }
 
     @GetMapping("/fresh-products/orders")
-    public ResponseEntity<List<BatchBuyerResponseDto>> getProductsPurchaseOrder(@RequestHeader("Buyer-Id") long buyerId,
-                                                                                @RequestParam long purchaseOrderId) {
-        return ResponseEntity.ok(service.getBatches(buyerId, purchaseOrderId));
+    public List<BatchBuyerResponseDto> getProductsPurchaseOrder(@RequestHeader("Buyer-Id") long buyerId,
+                                                                @RequestParam long purchaseOrderId) {
+        return service.getBatches(buyerId, purchaseOrderId);
     }
 }
