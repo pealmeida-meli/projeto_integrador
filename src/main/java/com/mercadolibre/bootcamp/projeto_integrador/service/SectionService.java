@@ -10,25 +10,24 @@ import com.mercadolibre.bootcamp.projeto_integrador.model.Product;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Section;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.ISectionRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
-import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IProductService;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IProductMapService;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.ISectionService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class SectionService implements ISectionService {
     private final ISectionRepository sectionRepository;
     private final IManagerService managerService;
-    private final IProductService productService;
+    private final IProductMapService productMapService;
 
     public SectionService(ISectionRepository sectionRepository, IManagerService managerService,
-                          IProductService productService) {
+                          IProductMapService productMapService) {
         this.sectionRepository = sectionRepository;
         this.managerService = managerService;
-        this.productService = productService;
+        this.productMapService = productMapService;
     }
 
     @Override
@@ -38,7 +37,7 @@ public class SectionService implements ISectionService {
 
     @Override
     public Section update(Section section, List<BatchRequestDto> batchesToInsert, long managerId) {
-        Map<Long, Product> products = productService.getProductMap(batchesToInsert);
+        ProductMapService.ProductMap products = productMapService.getProductMap(batchesToInsert);
 
         ensureManagerHasPermissionInSection(managerId, section);
         ensureSectionHasCompatibleCategory(section, products);
@@ -49,7 +48,7 @@ public class SectionService implements ISectionService {
         return section;
     }
 
-    private void ensureSectionHasCompatibleCategory(Section section, Map<Long, Product> products) {
+    private void ensureSectionHasCompatibleCategory(Section section, ProductMapService.ProductMap products) {
         List<Product> invalidProducts = products.values()
                 .stream()
                 .filter(product -> !product.getCategory().equals(section.getCategory()))

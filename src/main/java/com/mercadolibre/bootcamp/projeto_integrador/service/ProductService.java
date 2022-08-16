@@ -1,6 +1,9 @@
 package com.mercadolibre.bootcamp.projeto_integrador.service;
 
-import com.mercadolibre.bootcamp.projeto_integrador.dto.*;
+import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchResponseDto;
+import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductDetailsResponseDto;
+import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductResponseDto;
+import com.mercadolibre.bootcamp.projeto_integrador.dto.WarehouseResponseDto;
 import com.mercadolibre.bootcamp.projeto_integrador.exceptions.BadRequestException;
 import com.mercadolibre.bootcamp.projeto_integrador.exceptions.EmptyStockException;
 import com.mercadolibre.bootcamp.projeto_integrador.exceptions.NotFoundException;
@@ -16,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,20 +77,6 @@ public class ProductService implements IProductService {
             throw new EmptyStockException(product.getProductName());
 
         return new ProductDetailsResponseDto(productId, sortBatches(batches, orderBy));
-    }
-
-    /**
-     * Retorna mapa de produtos por ID
-     *
-     * @param batchesDto Lotes enviados no pedido de entrada
-     * @return Mapa de produtos com identificador como chave
-     */
-    @Override
-    public Map<Long, Product> getProductMap(List<BatchRequestDto> batchesDto) {
-        return productRepository
-                .findAllById(batchesDto.stream().map(BatchRequestDto::getProductId).collect(Collectors.toList()))
-                .stream()
-                .collect(Collectors.toMap(Product::getProductId, product -> product));
     }
 
     private List<BatchResponseDto> sortBatches(List<BatchResponseDto> batches, String orderBy) throws BadRequestException {

@@ -12,17 +12,15 @@ import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IBatchRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IBatchService;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
-import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IProductService;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IProductMapService;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.ISectionService;
 import org.apache.commons.lang3.StringUtils;
-import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -32,26 +30,27 @@ public class BatchService implements IBatchService {
     private final IBatchRepository batchRepository;
     private final IManagerService managerService;
     private final ISectionService sectionService;
-    private final IProductService productService;
+    private final IProductMapService productMapService;
 
     public BatchService(IBatchRepository batchRepository, IManagerService managerService,
-                        ISectionService sectionService, IProductService productService) {
+                        ISectionService sectionService,
+                        IProductMapService productMapService) {
         this.batchRepository = batchRepository;
         this.managerService = managerService;
         this.sectionService = sectionService;
-        this.productService = productService;
+        this.productMapService = productMapService;
     }
 
     @Override
     public List<Batch> createAll(List<BatchRequestDto> batchesDto, InboundOrder order) {
-        Map<Long, Product> products = productService.getProductMap(batchesDto);
+        ProductMapService.ProductMap products = productMapService.getProductMap(batchesDto);
         List<Batch> batches = buildBatchesForCreate(batchesDto, order, products);
         return batchRepository.saveAll(batches);
     }
 
     @Override
     public List<Batch> updateAll(InboundOrder order, List<BatchRequestDto> batchesDto) {
-        Map<Long, Product> products = productService.getProductMap(batchesDto);
+        ProductMapService.ProductMap products = productMapService.getProductMap(batchesDto);
         List<Long> batchNumbersToUpdate = batchesDto.stream()
                 .map(BatchRequestDto::getBatchNumber)
                 .filter(batchNumber -> batchNumber > 0L)
@@ -185,8 +184,7 @@ public class BatchService implements IBatchService {
                 .collect(Collectors.toList());
     }
 
-    private List<Batch> buildBatchesForCreate(List<BatchRequestDto> batchesDto, InboundOrder order, Map<Long,
-            Product> products) {
+    private List<Batch> buildBatchesForCreate(List<BatchRequestDto> batchesDto, InboundOrder order, ProductMapService.ProductMap products) {
         return batchesDto.stream()
                 .map(dto -> mapDtoToBatch(dto, order, products))
                 .peek(batch -> batch.setBatchNumber(0L))
@@ -194,13 +192,8 @@ public class BatchService implements IBatchService {
                 .collect(Collectors.toList());
     }
 
-    private Batch updateBatchFromDto(Batch batch, BatchRequestDto dto, Map<Long, Product> products) {
+    private Batch updateBatchFromDto(Batch batch, BatchRequestDto dto, ProductMapService.ProductMap products) {
         Product product = products.get(dto.getProductId());
-
-        if (product == null) {
-            throw new NotFoundException("Product");
-        }
-
         batch.setProduct(product);
         batch.setCurrentTemperature(dto.getCurrentTemperature());
         batch.setMinimumTemperature(dto.getMinimumTemperature());
@@ -251,16 +244,11 @@ public class BatchService implements IBatchService {
         return managerService.findById(managerId);
     }
 
-    private static Batch mapDtoToBatch(BatchRequestDto dto, InboundOrder order, Map<Long, Product> products) {
+    private static Batch mapDtoToBatch(BatchRequestDto dto, InboundOrder order, ProductMapService.ProductMap products) {
         ModelMapper modelMapper = new ModelMapper();
-        modelMapper.typeMap(BatchRequestDto.class, Batch.class).addMappings(mapper -> {
-            Converter<Long, Product> converter = context -> products.get(context.getSource());
-            mapper.using(converter).map(BatchRequestDto::getProductId, Batch::setProduct);
-        });
         Batch batch = modelMapper.map(dto, Batch.class);
-        if (batch.getProduct() == null)
-            throw new NotFoundException("Product");
         batch.setInboundOrder(order);
+        batch.setProduct(products.get(dto.getProductId()));
         return batch;
     }
 }
