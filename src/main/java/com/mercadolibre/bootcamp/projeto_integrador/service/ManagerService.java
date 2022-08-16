@@ -3,6 +3,7 @@ package com.mercadolibre.bootcamp.projeto_integrador.service;
 import com.mercadolibre.bootcamp.projeto_integrador.exceptions.ManagerNotFoundException;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Manager;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IManagerRepository;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

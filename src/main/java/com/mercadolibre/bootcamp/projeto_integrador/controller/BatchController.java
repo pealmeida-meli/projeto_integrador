@@ -1,7 +1,7 @@
 package com.mercadolibre.bootcamp.projeto_integrador.controller;
 
 import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchDueDateResponseDto;
-import com.mercadolibre.bootcamp.projeto_integrador.service.IBatchService;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IBatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

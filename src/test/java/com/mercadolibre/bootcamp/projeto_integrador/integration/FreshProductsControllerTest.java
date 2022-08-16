@@ -6,7 +6,7 @@ import com.mercadolibre.bootcamp.projeto_integrador.model.Manager;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Product;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Section;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Warehouse;
-import com.mercadolibre.bootcamp.projeto_integrador.service.IInboundOrderService;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IInboundOrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

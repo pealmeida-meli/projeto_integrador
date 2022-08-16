@@ -10,6 +10,7 @@ import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductDetailsResponseDt
 import com.mercadolibre.bootcamp.projeto_integrador.exceptions.BadRequestException;
 import com.mercadolibre.bootcamp.projeto_integrador.exceptions.EmptyStockException;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IProductRepository;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
 import com.mercadolibre.bootcamp.projeto_integrador.util.BatchGenerator;
 import com.mercadolibre.bootcamp.projeto_integrador.util.ManagerGenerator;
 import com.mercadolibre.bootcamp.projeto_integrador.util.ProductsGenerator;

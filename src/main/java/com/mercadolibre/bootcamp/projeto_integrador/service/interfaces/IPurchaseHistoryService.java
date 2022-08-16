@@ -1,4 +1,4 @@
-package com.mercadolibre.bootcamp.projeto_integrador.service;
+package com.mercadolibre.bootcamp.projeto_integrador.service.interfaces;
 
 import com.mercadolibre.bootcamp.projeto_integrador.dto.PurchaseHistoryResponseDto;
 

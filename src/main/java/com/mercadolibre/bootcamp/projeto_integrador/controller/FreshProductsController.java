@@ -1,7 +1,7 @@
 package com.mercadolibre.bootcamp.projeto_integrador.controller;
 
 import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchBuyerResponseDto;
-import com.mercadolibre.bootcamp.projeto_integrador.service.IBatchService;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IBatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/v1/fresh-products")
 public class FreshProductsController {
     @Autowired
-    IBatchService batchService;
+    private IBatchService batchService;
 
     @GetMapping
     public ResponseEntity<List<BatchBuyerResponseDto>> findBatches(@RequestParam(required = false) String category) {

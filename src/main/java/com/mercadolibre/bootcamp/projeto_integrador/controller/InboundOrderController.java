@@ -2,7 +2,7 @@ package com.mercadolibre.bootcamp.projeto_integrador.controller;
 
 import com.mercadolibre.bootcamp.projeto_integrador.dto.InboundOrderRequestDto;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.InboundOrderResponseDto;
-import com.mercadolibre.bootcamp.projeto_integrador.service.IInboundOrderService;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IInboundOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

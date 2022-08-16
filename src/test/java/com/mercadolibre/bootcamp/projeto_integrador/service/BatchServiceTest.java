@@ -10,6 +10,8 @@ import com.mercadolibre.bootcamp.projeto_integrador.model.Batch;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Manager;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Section;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IBatchRepository;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.ISectionService;
 import com.mercadolibre.bootcamp.projeto_integrador.util.BatchGenerator;
 import com.mercadolibre.bootcamp.projeto_integrador.util.ManagerGenerator;
 import org.junit.jupiter.api.BeforeEach;

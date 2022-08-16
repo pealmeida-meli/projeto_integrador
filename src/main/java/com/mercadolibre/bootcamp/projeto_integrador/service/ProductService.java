@@ -2,12 +2,13 @@ package com.mercadolibre.bootcamp.projeto_integrador.service;
 
 import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductResponseDto;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.WarehouseResponseDto;
-import com.mercadolibre.bootcamp.projeto_integrador.exceptions.ManagerNotFoundException;
 import com.mercadolibre.bootcamp.projeto_integrador.exceptions.NotFoundException;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Batch;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IBatchRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IManagerRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IProductRepository;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

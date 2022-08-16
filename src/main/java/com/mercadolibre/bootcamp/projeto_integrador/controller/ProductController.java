@@ -2,7 +2,7 @@ package com.mercadolibre.bootcamp.projeto_integrador.controller;
 
 import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductResponseDto;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductDetailsResponseDto;
-import com.mercadolibre.bootcamp.projeto_integrador.service.IProductService;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

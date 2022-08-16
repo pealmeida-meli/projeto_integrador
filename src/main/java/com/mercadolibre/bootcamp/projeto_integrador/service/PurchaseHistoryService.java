@@ -5,6 +5,7 @@ import com.mercadolibre.bootcamp.projeto_integrador.exceptions.NotFoundException
 import com.mercadolibre.bootcamp.projeto_integrador.model.Buyer;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IBatchPurchaseOrderRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IBuyerRepository;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IPurchaseHistoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

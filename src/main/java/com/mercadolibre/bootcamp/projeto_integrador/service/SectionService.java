@@ -9,6 +9,9 @@ import com.mercadolibre.bootcamp.projeto_integrador.model.Manager;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Product;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Section;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.ISectionRepository;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IProductService;
+import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.ISectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
