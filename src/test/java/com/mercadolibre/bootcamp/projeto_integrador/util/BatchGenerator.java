@@ -4,7 +4,7 @@ import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchRequestDto;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Batch;
 import com.mercadolibre.bootcamp.projeto_integrador.model.InboundOrder;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Product;
-import com.mercadolibre.bootcamp.projeto_integrador.model.Section;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
@@ -131,7 +131,7 @@ public class BatchGenerator {
         List<Batch> batches = newBatchList();
         for (Batch batch : batches) {
             batch.setProduct(ProductsGenerator.newProductChilled());
-            batch.getInboundOrder().getSection().setCategory(Section.Category.CHILLED);
+            batch.getInboundOrder().getSection().setCategory(ProductCategory.CHILLED);
             batch.getInboundOrder().getSection().getManager().setManagerId(1);
         }
         return batches;
@@ -141,7 +141,7 @@ public class BatchGenerator {
         List<Batch> batches = newBatchList();
         for (Batch batch : batches) {
             batch.setProduct(ProductsGenerator.newProductFrozen());
-            batch.getInboundOrder().getSection().setCategory(Section.Category.FROZEN);
+            batch.getInboundOrder().getSection().setCategory(ProductCategory.FROZEN);
             batch.getInboundOrder().getSection().getManager().setManagerId(1);
         }
         return batches;

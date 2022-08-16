@@ -3,6 +3,7 @@ package com.mercadolibre.bootcamp.projeto_integrador.integration;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.mercadolibre.bootcamp.projeto_integrador.integration.listeners.ResetDatabase;
 import com.mercadolibre.bootcamp.projeto_integrador.model.*;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -174,9 +175,9 @@ public class BatchControllerTest extends BaseControllerTest {
         Product product = getSavedFreshProduct();
         Batch batch = getSavedBatch(product, order);
 
-        Section newSection = getSavedSection(warehouse, manager, Section.Category.CHILLED);
+        Section newSection = getSavedSection(warehouse, manager, ProductCategory.CHILLED);
         InboundOrder newOrder = getSavedInboundOrder(newSection);
-        Product newProduct = getSavedProduct(Section.Category.CHILLED);
+        Product newProduct = getSavedProduct(ProductCategory.CHILLED);
         getSavedBatch(newProduct, newOrder);
 
         mockMvc.perform(get("/api/v1/fresh-products/due-date")

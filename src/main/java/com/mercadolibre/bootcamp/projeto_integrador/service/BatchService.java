@@ -8,6 +8,7 @@ import com.mercadolibre.bootcamp.projeto_integrador.exceptions.InitialQuantityEx
 import com.mercadolibre.bootcamp.projeto_integrador.exceptions.NotFoundException;
 import com.mercadolibre.bootcamp.projeto_integrador.exceptions.UnauthorizedManagerException;
 import com.mercadolibre.bootcamp.projeto_integrador.model.*;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IBatchRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IBatchService;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
@@ -146,7 +147,7 @@ public class BatchService implements IBatchService {
      */
     @Override
     public List<BatchBuyerResponseDto> findBatchByCategory(String categoryCode) {
-        Section.Category category = getCategory(categoryCode);
+        ProductCategory category = getCategory(categoryCode);
         LocalDate minimumExpirationDate = LocalDate.now().plusDays(minimumExpirationDays);
         List<Batch> batches = batchRepository
                 .findByCurrentQuantityGreaterThanAndDueDateAfterAndProduct_CategoryIs(0, minimumExpirationDate,
@@ -243,7 +244,7 @@ public class BatchService implements IBatchService {
                                                                        long managerId) {
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = LocalDate.now().plusDays(numberOfDays);
-        Section.Category category = getCategory(categoryCode);
+        ProductCategory category = getCategory(categoryCode);
         String orderDirection = StringUtils.trimToEmpty(orderDir);
 
         tryFindManagerById(managerId);
@@ -284,15 +285,15 @@ public class BatchService implements IBatchService {
      * @param categoryCode
      * @return String category
      */
-    private Section.Category getCategory(String categoryCode) {
+    private ProductCategory getCategory(String categoryCode) {
         categoryCode = categoryCode.toUpperCase();
         switch (categoryCode) {
             case "FS":
-                return Section.Category.FRESH;
+                return ProductCategory.FRESH;
             case "RF":
-                return Section.Category.CHILLED;
+                return ProductCategory.CHILLED;
             case "FF":
-                return Section.Category.FROZEN;
+                return ProductCategory.FROZEN;
             default:
                 throw new BadRequestException("Invalid category, try again with one of the options: " +
                         "'FS', 'RF' or 'FF' for fresh, chilled or frozen products respectively.");

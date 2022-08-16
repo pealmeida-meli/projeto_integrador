@@ -4,6 +4,7 @@ import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchRequestDto;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.InboundOrderRequestDto;
 import com.mercadolibre.bootcamp.projeto_integrador.integration.listeners.ResetDatabase;
 import com.mercadolibre.bootcamp.projeto_integrador.model.*;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -38,10 +39,10 @@ public class CreateInboundOrderTest extends BaseControllerTest {
         forbiddenManager = getSavedManager();
 
         section = getSavedFreshSection(warehouse, manager);
-        sectionWithChilled = getSavedSection(warehouse, manager, Section.Category.CHILLED);
+        sectionWithChilled = getSavedSection(warehouse, manager, ProductCategory.CHILLED);
 
         product = getSavedFreshProduct();
-        frozenProduct = getSavedProduct(Section.Category.FROZEN);
+        frozenProduct = getSavedProduct(ProductCategory.FROZEN);
 
         validInboundOrderRequest = getValidInboundOrderRequestDto(section, getValidBatchRequest(product));
         invalidInboundOrderRequest = getValidInboundOrderRequestDto(section, getInvalidBatchRequestDto(product));

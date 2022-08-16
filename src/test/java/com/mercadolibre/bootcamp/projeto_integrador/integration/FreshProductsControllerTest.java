@@ -6,6 +6,7 @@ import com.mercadolibre.bootcamp.projeto_integrador.model.Manager;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Product;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Section;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Warehouse;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IInboundOrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,8 +36,8 @@ class FreshProductsControllerTest extends BaseControllerTest {
     public void setup() {
         warehouse = getSavedWarehouse();
         manager = getSavedManager();
-        section = getSavedSection(warehouse, manager, Section.Category.FRESH);
-        product = getSavedProduct(Section.Category.FRESH);
+        section = getSavedSection(warehouse, manager, ProductCategory.FRESH);
+        product = getSavedProduct(ProductCategory.FRESH);
         validInboundOrderRequest = getValidInboundOrderRequestDtoWithBatchList(section,
                 getValidListBatchRequest(product));
         validInboundOrderRequest.getBatchStock().get(0).setBatchNumber(1);

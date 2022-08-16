@@ -5,6 +5,7 @@ import com.mercadolibre.bootcamp.projeto_integrador.dto.InboundOrderRequestDto;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.InboundOrderResponseDto;
 import com.mercadolibre.bootcamp.projeto_integrador.integration.listeners.ResetDatabase;
 import com.mercadolibre.bootcamp.projeto_integrador.model.*;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -230,7 +231,7 @@ public class UpdateInboundOrderTest extends BaseControllerTest {
 
     @Test
     void updateInboundOrder_returnsBadRequest_whenIsGivenIncompatibleProducts() throws Exception {
-        Product frozenProduct = getSavedProduct(Section.Category.FROZEN);
+        Product frozenProduct = getSavedProduct(ProductCategory.FROZEN);
         BatchRequestDto batchOfFrozenRequest = getValidBatchRequest(frozenProduct);
         InboundOrderRequestDto incompatibleRequestDto = getValidInboundOrderRequestDto(freshSection,
                 batchOfFrozenRequest);

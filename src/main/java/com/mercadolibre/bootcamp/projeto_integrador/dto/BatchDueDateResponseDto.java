@@ -1,7 +1,7 @@
 package com.mercadolibre.bootcamp.projeto_integrador.dto;
 
 import com.mercadolibre.bootcamp.projeto_integrador.model.Batch;
-import com.mercadolibre.bootcamp.projeto_integrador.model.Section;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +13,7 @@ public class BatchDueDateResponseDto {
     private long batchNumber;
     private long productId;
     private String productName;
-    private Section.Category productCategory;
+    private ProductCategory productCategory;
     private LocalDate dueDate;
     private int currentQuantity;
 

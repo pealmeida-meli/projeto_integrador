@@ -2,14 +2,14 @@ package com.mercadolibre.bootcamp.projeto_integrador.util;
 
 import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductResponseDto;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Product;
-import com.mercadolibre.bootcamp.projeto_integrador.model.Section;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 
 public class ProductsGenerator {
     public static Product newProductFresh() {
         return Product.builder()
                 .productName("Maça")
                 .brand("Nacional")
-                .category(Section.Category.FRESH)
+                .category(ProductCategory.FRESH)
                 .build();
     }
 
@@ -17,7 +17,7 @@ public class ProductsGenerator {
         return Product.builder()
                 .productName("Iogurte")
                 .brand("Holandês")
-                .category(Section.Category.CHILLED)
+                .category(ProductCategory.CHILLED)
                 .build();
     }
 
@@ -25,7 +25,7 @@ public class ProductsGenerator {
         return Product.builder()
                 .productName("Açaí")
                 .brand("Frooty")
-                .category(Section.Category.FROZEN)
+                .category(ProductCategory.FROZEN)
                 .build();
     }
 

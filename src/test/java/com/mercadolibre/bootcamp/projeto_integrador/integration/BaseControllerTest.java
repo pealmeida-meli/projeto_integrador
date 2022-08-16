@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchRequestDto;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.InboundOrderRequestDto;
 import com.mercadolibre.bootcamp.projeto_integrador.model.*;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.*;
 import com.mercadolibre.bootcamp.projeto_integrador.util.*;
 import org.modelmapper.ModelMapper;
@@ -95,10 +96,10 @@ public class BaseControllerTest {
     }
 
     protected Product getSavedFreshProduct() {
-        return getSavedProduct(Section.Category.FRESH);
+        return getSavedProduct(ProductCategory.FRESH);
     }
 
-    protected Product getSavedProduct(Section.Category category) {
+    protected Product getSavedProduct(ProductCategory category) {
         Product product = ProductsGenerator.newProductFresh();
         product.setCategory(category);
         productRepository.save(product);
@@ -116,7 +117,7 @@ public class BaseControllerTest {
         return section;
     }
 
-    protected Section getSavedSection(Warehouse warehouse, Manager manager, Section.Category category) {
+    protected Section getSavedSection(Warehouse warehouse, Manager manager, ProductCategory category) {
         Section section = SectionGenerator.getFreshSection(warehouse, manager);
         section.setCategory(category);
         sectionRepository.save(section);

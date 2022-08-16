@@ -9,6 +9,7 @@ import com.mercadolibre.bootcamp.projeto_integrador.exceptions.UnauthorizedManag
 import com.mercadolibre.bootcamp.projeto_integrador.model.Batch;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Manager;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Section;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IBatchRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.ISectionService;
@@ -100,9 +101,9 @@ class BatchServiceTest {
         // Assert
         assertThat(foundBatches).isNotEmpty();
         assertEquals(foundBatches.size(), batches.size());
-        assertEquals(foundBatches.get(0).getCategory(), Section.Category.CHILLED);
-        assertEquals(foundBatches.get(1).getCategory(), Section.Category.CHILLED);
-        assertEquals(foundBatches.get(2).getCategory(), Section.Category.CHILLED);
+        assertEquals(foundBatches.get(0).getCategory(), ProductCategory.CHILLED);
+        assertEquals(foundBatches.get(1).getCategory(), ProductCategory.CHILLED);
+        assertEquals(foundBatches.get(2).getCategory(), ProductCategory.CHILLED);
         assertEquals(foundBatches.get(0).getBatchNumber(), batches.get(0).getBatchNumber());
         assertEquals(foundBatches.get(1).getBatchNumber(), batches.get(1).getBatchNumber());
         assertEquals(foundBatches.get(2).getBatchNumber(), batches.get(2).getBatchNumber());
@@ -120,9 +121,9 @@ class BatchServiceTest {
         // Assert
         assertThat(foundBatches).isNotEmpty();
         assertEquals(foundBatches.size(), batches.size());
-        assertEquals(foundBatches.get(0).getCategory(), Section.Category.FRESH);
-        assertEquals(foundBatches.get(1).getCategory(), Section.Category.FRESH);
-        assertEquals(foundBatches.get(2).getCategory(), Section.Category.FRESH);
+        assertEquals(foundBatches.get(0).getCategory(), ProductCategory.FRESH);
+        assertEquals(foundBatches.get(1).getCategory(), ProductCategory.FRESH);
+        assertEquals(foundBatches.get(2).getCategory(), ProductCategory.FRESH);
         assertEquals(foundBatches.get(0).getBatchNumber(), batches.get(0).getBatchNumber());
         assertEquals(foundBatches.get(1).getBatchNumber(), batches.get(1).getBatchNumber());
         assertEquals(foundBatches.get(2).getBatchNumber(), batches.get(2).getBatchNumber());
@@ -141,9 +142,9 @@ class BatchServiceTest {
         // Assert
         assertThat(foundBatches).isNotEmpty();
         assertEquals(foundBatches.size(), batches.size());
-        assertEquals(foundBatches.get(0).getCategory(), Section.Category.FROZEN);
-        assertEquals(foundBatches.get(1).getCategory(), Section.Category.FROZEN);
-        assertEquals(foundBatches.get(2).getCategory(), Section.Category.FROZEN);
+        assertEquals(foundBatches.get(0).getCategory(), ProductCategory.FROZEN);
+        assertEquals(foundBatches.get(1).getCategory(), ProductCategory.FROZEN);
+        assertEquals(foundBatches.get(2).getCategory(), ProductCategory.FROZEN);
         assertEquals(foundBatches.get(0).getBatchNumber(), batches.get(0).getBatchNumber());
         assertEquals(foundBatches.get(1).getBatchNumber(), batches.get(1).getBatchNumber());
         assertEquals(foundBatches.get(2).getBatchNumber(), batches.get(2).getBatchNumber());

@@ -6,6 +6,7 @@ import com.mercadolibre.bootcamp.projeto_integrador.model.Manager;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Product;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Section;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Warehouse;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IInboundOrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,8 +34,8 @@ class ProductGetWarehousesTest extends BaseControllerTest {
     @BeforeEach
     public void setup() {
         manager = getSavedManager();
-        product1 = getSavedProduct(Section.Category.FRESH);
-        product2 = getSavedProduct(Section.Category.FRESH);
+        product1 = getSavedProduct(ProductCategory.FRESH);
+        product2 = getSavedProduct(ProductCategory.FRESH);
 
         Warehouse warehouse = getSavedWarehouseWithoutCode();
         Section section = getSavedSection(warehouse, manager, product1.getCategory());

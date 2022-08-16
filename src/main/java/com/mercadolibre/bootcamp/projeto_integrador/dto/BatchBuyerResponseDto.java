@@ -2,7 +2,7 @@ package com.mercadolibre.bootcamp.projeto_integrador.dto;
 
 import com.mercadolibre.bootcamp.projeto_integrador.model.Batch;
 import com.mercadolibre.bootcamp.projeto_integrador.model.BatchPurchaseOrder;
-import com.mercadolibre.bootcamp.projeto_integrador.model.Section;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +17,7 @@ public class BatchBuyerResponseDto {
     private long batchNumber;
     private String productName;
     private String brand;
-    private Section.Category category;
+    private ProductCategory category;
     private int quantity;
     private LocalDate dueDate;
     private BigDecimal productPrice;

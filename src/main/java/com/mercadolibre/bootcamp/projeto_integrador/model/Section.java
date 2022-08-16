@@ -1,6 +1,7 @@
 package com.mercadolibre.bootcamp.projeto_integrador.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,9 +22,9 @@ public class Section {
     @JoinColumn(name = "warehouse_code")
     private Warehouse warehouse;
 
-    @Column(columnDefinition = Category.mysqlDefinition)
+    @Column(columnDefinition = ProductCategory.mysqlDefinition)
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private ProductCategory category;
 
     private int maxBatches;
 
@@ -37,18 +38,4 @@ public class Section {
         return maxBatches - currentBatches;
     }
 
-    public enum Category {
-        FRESH("FS"),
-        CHILLED("RF"),
-        FROZEN("FF");
-
-        public static final String mysqlDefinition = "enum('FRESH', 'CHILLED', 'FROZEN')";
-
-        @Getter
-        private final String code;
-
-        Category(String code) {
-            this.code = code;
-        }
-    }
 }

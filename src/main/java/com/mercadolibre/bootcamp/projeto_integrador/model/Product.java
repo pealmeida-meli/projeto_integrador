@@ -1,6 +1,7 @@
 package com.mercadolibre.bootcamp.projeto_integrador.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mercadolibre.bootcamp.projeto_integrador.model.enums.ProductCategory;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,9 +23,9 @@ public class Product {
     @Column(length = 45)
     private String brand;
 
-    @Column(columnDefinition = Section.Category.mysqlDefinition)
+    @Column(columnDefinition = ProductCategory.mysqlDefinition)
     @Enumerated(EnumType.STRING)
-    private Section.Category category;
+    private ProductCategory category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
