@@ -11,7 +11,6 @@ import com.mercadolibre.bootcamp.projeto_integrador.repository.IInboundOrderRepo
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IBatchService;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IInboundOrderService;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.ISectionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,15 +20,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class InboundOrderService implements IInboundOrderService {
+    private final IBatchService batchService;
+    private final IInboundOrderRepository inboundOrderRepository;
+    private final ISectionService sectionService;
 
-    @Autowired
-    private IBatchService batchService;
-
-    @Autowired
-    private IInboundOrderRepository inboundOrderRepository;
-
-    @Autowired
-    private ISectionService sectionService;
+    public InboundOrderService(IBatchService batchService, IInboundOrderRepository inboundOrderRepository,
+                               ISectionService sectionService) {
+        this.batchService = batchService;
+        this.inboundOrderRepository = inboundOrderRepository;
+        this.sectionService = sectionService;
+    }
 
     /**
      * Método que faz a criação da InboundOrder com novos lotes

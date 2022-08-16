@@ -5,7 +5,6 @@ import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchPurchaseOrderReques
 import com.mercadolibre.bootcamp.projeto_integrador.dto.PurchaseOrderRequestDto;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.PurchaseOrderResponseDto;
 import com.mercadolibre.bootcamp.projeto_integrador.service.PurchaseOrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,9 +17,11 @@ import java.util.List;
 @Validated
 @RequestMapping("/api/v1")
 public class PurchaseOrderController {
+    private final PurchaseOrderService service;
 
-    @Autowired
-    private PurchaseOrderService service;
+    public PurchaseOrderController(PurchaseOrderService service) {
+        this.service = service;
+    }
 
     @PostMapping("/fresh-products/orders")
     public ResponseEntity<PurchaseOrderResponseDto> createPurchaseOrder(@RequestHeader("Buyer-Id") long buyerId,

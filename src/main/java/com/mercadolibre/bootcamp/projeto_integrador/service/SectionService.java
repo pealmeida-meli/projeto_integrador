@@ -12,7 +12,6 @@ import com.mercadolibre.bootcamp.projeto_integrador.repository.ISectionRepositor
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IProductService;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.ISectionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,14 +20,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class SectionService implements ISectionService {
-    @Autowired
-    private ISectionRepository sectionRepository;
+    private final ISectionRepository sectionRepository;
+    private final IManagerService managerService;
+    private final IProductService productService;
 
-    @Autowired
-    private IManagerService managerService;
-
-    @Autowired
-    private IProductService productService;
+    public SectionService(ISectionRepository sectionRepository, IManagerService managerService,
+                          IProductService productService) {
+        this.sectionRepository = sectionRepository;
+        this.managerService = managerService;
+        this.productService = productService;
+    }
 
     @Override
     public Section findById(long sectionCode) {

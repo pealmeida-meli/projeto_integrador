@@ -1,14 +1,14 @@
 package com.mercadolibre.bootcamp.projeto_integrador.service;
 
+import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductDetailsResponseDto;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductResponseDto;
+import com.mercadolibre.bootcamp.projeto_integrador.exceptions.BadRequestException;
+import com.mercadolibre.bootcamp.projeto_integrador.exceptions.EmptyStockException;
 import com.mercadolibre.bootcamp.projeto_integrador.exceptions.NotFoundException;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Batch;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Manager;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Product;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IBatchRepository;
-import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductDetailsResponseDto;
-import com.mercadolibre.bootcamp.projeto_integrador.exceptions.BadRequestException;
-import com.mercadolibre.bootcamp.projeto_integrador.exceptions.EmptyStockException;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IProductRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
 import com.mercadolibre.bootcamp.projeto_integrador.util.BatchGenerator;
@@ -21,6 +21,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;

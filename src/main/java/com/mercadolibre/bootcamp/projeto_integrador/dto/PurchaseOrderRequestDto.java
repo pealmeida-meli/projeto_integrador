@@ -1,12 +1,11 @@
 package com.mercadolibre.bootcamp.projeto_integrador.dto;
 
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Data
 @NoArgsConstructor

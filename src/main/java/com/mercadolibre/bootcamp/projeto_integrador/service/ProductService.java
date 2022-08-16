@@ -1,44 +1,36 @@
 package com.mercadolibre.bootcamp.projeto_integrador.service;
 
-import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductResponseDto;
-import com.mercadolibre.bootcamp.projeto_integrador.dto.WarehouseResponseDto;
+import com.mercadolibre.bootcamp.projeto_integrador.dto.*;
+import com.mercadolibre.bootcamp.projeto_integrador.exceptions.BadRequestException;
+import com.mercadolibre.bootcamp.projeto_integrador.exceptions.EmptyStockException;
 import com.mercadolibre.bootcamp.projeto_integrador.exceptions.NotFoundException;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Batch;
+import com.mercadolibre.bootcamp.projeto_integrador.model.Product;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IBatchRepository;
-import com.mercadolibre.bootcamp.projeto_integrador.repository.IManagerRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IProductRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
-import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchRequestDto;
-import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchResponseDto;
-import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductDetailsResponseDto;
-import com.mercadolibre.bootcamp.projeto_integrador.exceptions.BadRequestException;
-import com.mercadolibre.bootcamp.projeto_integrador.exceptions.EmptyStockException;
-import com.mercadolibre.bootcamp.projeto_integrador.model.Product;
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
-    @Autowired
-    private IProductRepository productRepository;
+    private final IProductRepository productRepository;
+    private final IBatchRepository batchRepository;
+    private final IManagerService managerService;
 
-    @Autowired
-    private IBatchRepository batchRepository;
-
-    @Autowired
-    private IManagerRepository managerRepository;
-
-    @Autowired
-    private IManagerService managerService;
+    public ProductService(IProductRepository productRepository, IBatchRepository batchRepository,
+                           IManagerService managerService) {
+        this.productRepository = productRepository;
+        this.batchRepository = batchRepository;
+        this.managerService = managerService;
+    }
 
     /**
      * Metodo que retorna todos armazens que contenham um determinado item com as quantidades totais.

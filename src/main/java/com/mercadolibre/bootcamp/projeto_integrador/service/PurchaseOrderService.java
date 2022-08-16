@@ -17,7 +17,6 @@ import com.mercadolibre.bootcamp.projeto_integrador.repository.IBatchRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IBuyerRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IPurchaseOrderRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IPurchaseOrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,18 +30,19 @@ import java.util.stream.Collectors;
 
 @Service
 public class PurchaseOrderService implements IPurchaseOrderService {
+    private final IBuyerRepository buyerRepository;
+    private final IPurchaseOrderRepository purchaseOrderRepository;
+    private final IBatchRepository batchRepository;
+    private final IBatchPurchaseOrderRepository batchPurchaseOrderRepository;
 
-    @Autowired
-    private IBuyerRepository buyerRepository;
-
-    @Autowired
-    private IPurchaseOrderRepository purchaseOrderRepository;
-
-    @Autowired
-    private IBatchRepository batchRepository;
-
-    @Autowired
-    private IBatchPurchaseOrderRepository batchPurchaseOrderRepository;
+    public PurchaseOrderService(IBuyerRepository buyerRepository, IPurchaseOrderRepository purchaseOrderRepository,
+                                IBatchRepository batchRepository,
+                                IBatchPurchaseOrderRepository batchPurchaseOrderRepository) {
+        this.buyerRepository = buyerRepository;
+        this.purchaseOrderRepository = purchaseOrderRepository;
+        this.batchRepository = batchRepository;
+        this.batchPurchaseOrderRepository = batchPurchaseOrderRepository;
+    }
 
     /**
      * Metodo que cria um carrinho (PurchaseOrder) novo ou insere/atualiza itens em um carrinho existente.

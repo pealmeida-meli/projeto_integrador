@@ -4,13 +4,15 @@ import com.mercadolibre.bootcamp.projeto_integrador.exceptions.ManagerNotFoundEx
 import com.mercadolibre.bootcamp.projeto_integrador.model.Manager;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IManagerRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IManagerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ManagerService implements IManagerService {
-    @Autowired
-    private IManagerRepository managerRepository;
+    private final IManagerRepository managerRepository;
+
+    public ManagerService(IManagerRepository managerRepository) {
+        this.managerRepository = managerRepository;
+    }
 
     @Override
     public Manager findById(long managerId) {

@@ -3,7 +3,10 @@ package com.mercadolibre.bootcamp.projeto_integrador.service;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchBuyerResponseDto;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchDueDateResponseDto;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchRequestDto;
-import com.mercadolibre.bootcamp.projeto_integrador.exceptions.*;
+import com.mercadolibre.bootcamp.projeto_integrador.exceptions.BadRequestException;
+import com.mercadolibre.bootcamp.projeto_integrador.exceptions.InitialQuantityException;
+import com.mercadolibre.bootcamp.projeto_integrador.exceptions.NotFoundException;
+import com.mercadolibre.bootcamp.projeto_integrador.exceptions.UnauthorizedManagerException;
 import com.mercadolibre.bootcamp.projeto_integrador.model.*;
 import com.mercadolibre.bootcamp.projeto_integrador.repository.IBatchRepository;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IBatchService;
@@ -13,7 +16,6 @@ import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.ISectionS
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,14 +28,18 @@ import java.util.stream.Stream;
 @Service
 public class BatchService implements IBatchService {
     private final int minimumExpirationDays = 20;
-    @Autowired
-    private IBatchRepository batchRepository;
-    @Autowired
-    private IManagerService managerService;
-    @Autowired
-    private ISectionService sectionService;
-    @Autowired
-    private IProductService productService;
+    private final IBatchRepository batchRepository;
+    private final IManagerService managerService;
+    private final ISectionService sectionService;
+    private final IProductService productService;
+
+    public BatchService(IBatchRepository batchRepository, IManagerService managerService,
+                        ISectionService sectionService, IProductService productService) {
+        this.batchRepository = batchRepository;
+        this.managerService = managerService;
+        this.sectionService = sectionService;
+        this.productService = productService;
+    }
 
     /**
      * Metodo que faz o map do DTO de Batch para um objeto Batch e já lhe atribui um produto (que deve existir).

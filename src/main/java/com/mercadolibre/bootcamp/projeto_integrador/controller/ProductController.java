@@ -3,15 +3,16 @@ package com.mercadolibre.bootcamp.projeto_integrador.controller;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductDetailsResponseDto;
 import com.mercadolibre.bootcamp.projeto_integrador.dto.ProductResponseDto;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
 public class ProductController {
+    private final IProductService service;
 
-    @Autowired
-    private IProductService service;
+    public ProductController(IProductService service) {
+        this.service = service;
+    }
 
     @GetMapping("/fresh-products/warehouse")
     public ProductResponseDto getWarehouses(@RequestParam long productId,

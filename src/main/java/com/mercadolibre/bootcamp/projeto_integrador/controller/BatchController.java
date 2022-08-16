@@ -2,7 +2,6 @@ package com.mercadolibre.bootcamp.projeto_integrador.controller;
 
 import com.mercadolibre.bootcamp.projeto_integrador.dto.BatchDueDateResponseDto;
 import com.mercadolibre.bootcamp.projeto_integrador.service.interfaces.IBatchService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +12,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class BatchController {
-    @Autowired
-    private IBatchService batchService;
+    private final IBatchService batchService;
+
+    public BatchController(IBatchService batchService) {
+        this.batchService = batchService;
+    }
 
     @GetMapping(value = "/fresh-products/due-date", params = {"sectionCode", "numberOfDays"})
     public List<BatchDueDateResponseDto> findBatchBySection(long sectionCode,
