@@ -48,7 +48,7 @@ public class ProductService implements IProductService {
 
         batchList.stream()
                 .collect(Collectors.groupingBy(b -> b.getInboundOrder().getSection().getWarehouse().getWarehouseCode(),
-                        Collectors.summingInt(b -> b.getCurrentQuantity())))
+                        Collectors.summingInt(Batch::getCurrentQuantity)))
                 .forEach((warehouseCode, totalQuantity) -> warehouses.add(new WarehouseResponseDto(warehouseCode,
                         totalQuantity)));
         return new ProductResponseDto(productId, warehouses);
@@ -78,13 +78,19 @@ public class ProductService implements IProductService {
     }
 
     /**
-     * Ordena uma lista de Batch de acordo com o parâmetro recebido.
+     * Retorna mapa de produtos por ID
      *
-     * @param batches lista de lotes
-     * @param orderBy L: batchNumber, Q: currentQuantity, V: dueDate.
-     * @return Lista ordenada de batches.
-     * @throws BadRequestException Caso o parâmetro seja inválido.
+     * @param batchesDto Lotes enviados no pedido de entrada
+     * @return Mapa de produtos com identificador como chave
      */
+    @Override
+    public Map<Long, Product> getProductMap(List<BatchRequestDto> batchesDto) {
+        return productRepository
+                .findAllById(batchesDto.stream().map(BatchRequestDto::getProductId).collect(Collectors.toList()))
+                .stream()
+                .collect(Collectors.toMap(Product::getProductId, product -> product));
+    }
+
     private List<BatchResponseDto> sortBatches(List<BatchResponseDto> batches, String orderBy) throws BadRequestException {
         if (StringUtils.isBlank(orderBy))
             return batches;
@@ -110,19 +116,5 @@ public class ProductService implements IProductService {
 
     private void ensureManagerExists(long managerId) {
         managerService.findById(managerId);
-    }
-
-    /**
-     * Retorna mapa de produtos por ID
-     *
-     * @param batchesDto Lotes enviados no pedido de entrada
-     * @return Mapa de produtos com identificador como chave
-     */
-    @Override
-    public Map<Long, Product> getProductMap(List<BatchRequestDto> batchesDto) {
-        return productRepository
-                .findAllById(batchesDto.stream().map(BatchRequestDto::getProductId).collect(Collectors.toList()))
-                .stream()
-                .collect(Collectors.toMap(Product::getProductId, product -> product));
     }
 }

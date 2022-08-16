@@ -13,9 +13,6 @@ public interface IBatchService {
 
     List<Batch> updateAll(InboundOrder order, List<BatchRequestDto> batchesDto);
 
-    @Deprecated
-    Batch update(InboundOrder order, Batch batch);
-
     List<BatchBuyerResponseDto> findAll();
 
     List<BatchBuyerResponseDto> findBatchByCategory(String categoryCode);

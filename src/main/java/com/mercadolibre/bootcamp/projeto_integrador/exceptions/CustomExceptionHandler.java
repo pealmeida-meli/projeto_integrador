@@ -22,12 +22,6 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
-    /**
-     * Lança exceções não mapeadas com HTTP Status 500, que poderão ser verificadas posterioremente.
-     *
-     * @param exception
-     * @throw Exception
-     */
     @ExceptionHandler(Exception.class)
     public Object unmappedExceptionHandler(Exception exception) {
         exception.printStackTrace();
@@ -109,10 +103,8 @@ public class CustomExceptionHandler {
     @ExceptionHandler({MismatchedInputException.class, InvalidFormatException.class,
             HttpMessageNotReadableException.class})
     public ResponseEntity<CustomError> invalidFormatHandler(MismatchedInputException exception) {
-        /*
-        Através do caminho do erro (path), pega o campo (getFieldName) onde o erro ocorreu. Quando o erro ocorrer
-        dentro de uma lista, o replace substituirá o valor "null" por ":" para melhorar a visualização.
-         */
+        // Através do caminho do erro (path), pega o campo (getFieldName) onde o erro ocorreu. Quando o erro ocorrer
+        // dentro de uma lista, o replace substituirá o valor "null" por ":" para melhorar a visualização.
         String field = exception.getPath().stream()
                 .map(JsonMappingException.Reference::getFieldName)
                 .collect(Collectors.joining())
@@ -121,10 +113,8 @@ public class CustomExceptionHandler {
         // Concatena uma mensagem contendo o nome do campo e o tipo esperado no campo.
         String message = field + ": esperado " + exception.getTargetType().getSimpleName() + ".";
 
-        /*
-        Instancia um CustomError, recebendo o simpleName da exception no primeiro parâmetro
-        e a mensagem no segundo parâmetro.
-         */
+        // Instancia um CustomError, recebendo o simpleName da exception no primeiro parâmetro
+        // e a mensagem no segundo parâmetro.
         CustomError error = new CustomError("Campo(s) inválido(s)", message, LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }

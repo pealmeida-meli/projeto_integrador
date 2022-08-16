@@ -42,27 +42,6 @@ public class BatchService implements IBatchService {
         this.productService = productService;
     }
 
-    /**
-     * Metodo que faz o map do DTO de Batch para um objeto Batch e já lhe atribui um produto (que deve existir).
-     *
-     * @param dto      objeto BatchRequestDto que é recebido na requisição.
-     * @param order    ordem de entrada
-     * @param products mapa de Product.
-     * @return Objeto Batch montado com um produto atribuido.
-     */
-    public static Batch mapDtoToBatch(BatchRequestDto dto, InboundOrder order, Map<Long, Product> products) {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.typeMap(BatchRequestDto.class, Batch.class).addMappings(mapper -> {
-            Converter<Long, Product> converter = context -> products.get(context.getSource());
-            mapper.using(converter).map(BatchRequestDto::getProductId, Batch::setProduct);
-        });
-        Batch batch = modelMapper.map(dto, Batch.class);
-        if (batch.getProduct() == null)
-            throw new NotFoundException("Product");
-        batch.setInboundOrder(order);
-        return batch;
-    }
-
     @Override
     public List<Batch> createAll(List<BatchRequestDto> batchesDto, InboundOrder order) {
         Map<Long, Product> products = productService.getProductMap(batchesDto);
@@ -104,25 +83,6 @@ public class BatchService implements IBatchService {
         return batchRepository.saveAll(batchesToSave);
     }
 
-    @Override
-    @Deprecated
-    public Batch update(InboundOrder order, Batch batch) {
-        Optional<Batch> b = batchRepository.findById(batch.getBatchNumber());
-        batch.setInboundOrder(order);
-        if (b.isEmpty()) {
-            batch.setCurrentQuantity(batch.getInitialQuantity());
-            batchRepository.save(batch);
-            return batch;
-        }
-        int selledProducts = b.get().getInitialQuantity() - b.get().getCurrentQuantity();
-        batch.setCurrentQuantity(batch.getInitialQuantity() - selledProducts);
-        if (batch.getCurrentQuantity() < 0) {
-            throw new InitialQuantityException(batch.getInitialQuantity(), selledProducts);
-        }
-        batchRepository.save(batch);
-        return batch;
-    }
-
     /**
      * Método que busca a lista de Batches com estoque positovo e data de validade superior a 20 dias.
      *
@@ -156,48 +116,6 @@ public class BatchService implements IBatchService {
             throw new NotFoundException("Products", "There are no products in stock in the requested category");
         }
         return mapListBatchToListDto(batches);
-    }
-
-    /**
-     * Metodo que monta uma lista de Batch, dada lista de DTO da requisição.
-     *
-     * @param batchesDto lista de BatchRequestDto.
-     * @return List<Batch> pronto.
-     */
-    private List<Batch> buildBatchesForCreate(List<BatchRequestDto> batchesDto, InboundOrder order, Map<Long,
-            Product> products) {
-        return batchesDto.stream()
-                .map(dto -> mapDtoToBatch(dto, order, products))
-                .peek(batch -> batch.setBatchNumber(0L))
-                .peek(batch -> batch.setCurrentQuantity(batch.getInitialQuantity()))
-                .collect(Collectors.toList());
-    }
-
-    private Batch updateBatchFromDto(Batch batch, BatchRequestDto dto, Map<Long, Product> products) {
-        Product product = products.get(dto.getProductId());
-
-        if (product == null) {
-            throw new NotFoundException("Product");
-        }
-
-        batch.setProduct(product);
-        batch.setCurrentTemperature(dto.getCurrentTemperature());
-        batch.setMinimumTemperature(dto.getMinimumTemperature());
-        batch.setManufacturingDate(dto.getManufacturingDate());
-        batch.setManufacturingTime(dto.getManufacturingTime());
-        batch.setDueDate(dto.getDueDate());
-        batch.setProductPrice(dto.getProductPrice());
-
-        int soldProducts = batch.getInitialQuantity() - batch.getCurrentQuantity();
-        batch.setCurrentQuantity(dto.getInitialQuantity() - soldProducts);
-
-        if (batch.getCurrentQuantity() < 0) {
-            throw new InitialQuantityException(dto.getInitialQuantity(), soldProducts);
-        }
-
-        batch.setInitialQuantity(dto.getInitialQuantity());
-
-        return batch;
     }
 
     /**
@@ -267,24 +185,48 @@ public class BatchService implements IBatchService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Método converte a lista de Batch para uma lista de BatchBuyerResponseDto.
-     *
-     * @param batches
-     * @return List<BatchBuyerResponseDto>
-     */
+    private List<Batch> buildBatchesForCreate(List<BatchRequestDto> batchesDto, InboundOrder order, Map<Long,
+            Product> products) {
+        return batchesDto.stream()
+                .map(dto -> mapDtoToBatch(dto, order, products))
+                .peek(batch -> batch.setBatchNumber(0L))
+                .peek(batch -> batch.setCurrentQuantity(batch.getInitialQuantity()))
+                .collect(Collectors.toList());
+    }
+
+    private Batch updateBatchFromDto(Batch batch, BatchRequestDto dto, Map<Long, Product> products) {
+        Product product = products.get(dto.getProductId());
+
+        if (product == null) {
+            throw new NotFoundException("Product");
+        }
+
+        batch.setProduct(product);
+        batch.setCurrentTemperature(dto.getCurrentTemperature());
+        batch.setMinimumTemperature(dto.getMinimumTemperature());
+        batch.setManufacturingDate(dto.getManufacturingDate());
+        batch.setManufacturingTime(dto.getManufacturingTime());
+        batch.setDueDate(dto.getDueDate());
+        batch.setProductPrice(dto.getProductPrice());
+
+        int soldProducts = batch.getInitialQuantity() - batch.getCurrentQuantity();
+        batch.setCurrentQuantity(dto.getInitialQuantity() - soldProducts);
+
+        if (batch.getCurrentQuantity() < 0) {
+            throw new InitialQuantityException(dto.getInitialQuantity(), soldProducts);
+        }
+
+        batch.setInitialQuantity(dto.getInitialQuantity());
+
+        return batch;
+    }
+
     private List<BatchBuyerResponseDto> mapListBatchToListDto(List<Batch> batches) {
         return batches.stream()
                 .map(BatchBuyerResponseDto::new)
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Método que retorna a categoria do produto dado o código da cateogria.
-     *
-     * @param categoryCode
-     * @return String category
-     */
     private ProductCategory getCategory(String categoryCode) {
         categoryCode = categoryCode.toUpperCase();
         switch (categoryCode) {
@@ -307,5 +249,18 @@ public class BatchService implements IBatchService {
 
     private Manager tryFindManagerById(long managerId) {
         return managerService.findById(managerId);
+    }
+
+    private static Batch mapDtoToBatch(BatchRequestDto dto, InboundOrder order, Map<Long, Product> products) {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.typeMap(BatchRequestDto.class, Batch.class).addMappings(mapper -> {
+            Converter<Long, Product> converter = context -> products.get(context.getSource());
+            mapper.using(converter).map(BatchRequestDto::getProductId, Batch::setProduct);
+        });
+        Batch batch = modelMapper.map(dto, Batch.class);
+        if (batch.getProduct() == null)
+            throw new NotFoundException("Product");
+        batch.setInboundOrder(order);
+        return batch;
     }
 }
