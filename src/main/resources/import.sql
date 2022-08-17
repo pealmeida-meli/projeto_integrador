@@ -39,7 +39,7 @@ insert into seller values (null, 'ciclano@example.com', 'Ciclano', 'ciclano');
 insert into product values (null, 'Danone', 'CHILLED', 'Iogurte', 1);
 insert into product values (null, 'Sadia', 'CHILLED', 'Queijo', 2);
 insert into product values (null, 'Seara', 'CHILLED', 'Salsicha', 2);
-insert into product values (null, 'Vigor', 'CHILLED', 'Queijo', 3);
+insert into product values (null, 'Vigor', 'CHILLED', 'Margarina', 3);
 insert into product values (null, 'Catupiry', 'CHILLED', 'Requeijão', 5);
 
 insert into product values (null, 'Sadia', 'FROZEN', 'Frango',2);

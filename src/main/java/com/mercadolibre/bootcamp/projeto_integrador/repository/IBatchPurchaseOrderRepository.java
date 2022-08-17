@@ -4,13 +4,14 @@ import com.mercadolibre.bootcamp.projeto_integrador.model.Batch;
 import com.mercadolibre.bootcamp.projeto_integrador.model.BatchPurchaseOrder;
 import com.mercadolibre.bootcamp.projeto_integrador.model.Buyer;
 import com.mercadolibre.bootcamp.projeto_integrador.model.PurchaseOrder;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface IBatchPurchaseOrderRepository extends JpaRepository<BatchPurchaseOrder, Long> {
+public interface IBatchPurchaseOrderRepository extends PagingAndSortingRepository<BatchPurchaseOrder, Long> {
     Optional<BatchPurchaseOrder> findOneByPurchaseOrderAndBatch(PurchaseOrder purchaseOrder, Batch batch);
 
-    List<BatchPurchaseOrder> findAllByPurchaseOrder_BuyerAndPurchaseOrder_OrderStatusOrderByPurchaseOrder_Date(Buyer buyer, String orderStatus);
+    Page<BatchPurchaseOrder> findAllByPurchaseOrder_BuyerAndPurchaseOrder_OrderStatus(Buyer buyer, String orderStatus, Pageable pageable);
 }

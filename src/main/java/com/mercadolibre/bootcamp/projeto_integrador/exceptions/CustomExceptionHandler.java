@@ -3,6 +3,7 @@ package com.mercadolibre.bootcamp.projeto_integrador.exceptions;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -29,6 +30,15 @@ public class CustomExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new CustomError("Internal Server Error",
                         "An internal server error has occurred.", LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(PropertyReferenceException.class)
+    public ResponseEntity<CustomError> handle(PropertyReferenceException exception) {
+        var error = new CustomError(
+                "Unknown property",
+                String.format("The property %s is unknown", exception.getPropertyName()),
+                LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
     @ExceptionHandler(CustomException.class)
